@@ -2,31 +2,26 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-import { partners } from "@/lib/site-data"
+import type { Partner } from "@/lib/content/types"
+import { SectionHeader } from "@/components/ui/section-header"
 
-export function PartnersSection() {
+export interface PartnersSectionProps {
+  partners: Partner[]
+}
+
+export function PartnersSection({ partners }: PartnersSectionProps) {
   const { ref, isInView } = useScrollAnimation()
 
   return (
-    <section id="partners" className="py-20 lg:py-32 bg-card">
+    <section id="partners" className="py-20 lg:py-32 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div
+        <SectionHeader
           ref={ref}
-          className={cn(
-            "text-center mb-16 transition-all duration-700",
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
-          )}
-        >
-          <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">Partenaires</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Ils Nous Font Confiance
-          </h2>
-          <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed text-pretty">
-            Nous collaborons avec les leaders de l'industrie pharmaceutique et de la santé pour offrir les meilleures
-            opportunités à nos membres.
-          </p>
-        </div>
+          isInView={isInView}
+          eyebrow="Partenaires"
+          title="Ils nous font confiance"
+          description="Nous collaborons avec les leaders de l'industrie pharmaceutique et de la santé pour offrir les meilleures opportunités à nos membres."
+        />
 
         {/* Partners Logos */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">

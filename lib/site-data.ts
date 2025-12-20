@@ -19,76 +19,19 @@
 // }
 // =============================================================================
 
-// -----------------------------------------------------------------------------
-// TYPE DEFINITIONS (for CMS compatibility)
-// -----------------------------------------------------------------------------
+import type {
+  AboutContent,
+  Event,
+  NavigationItem,
+  Partner,
+  Pole,
+  SiteConfig,
+  Stat,
+  TeamMember,
+  Value,
+} from "./content/types"
 
-export interface SiteConfig {
-  name: string
-  tagline: string
-  description: string
-  contact: {
-    email: string
-    address?: string
-    phone?: string
-  }
-  social: {
-    instagram?: string
-    linkedin?: string
-    twitter?: string
-  }
-}
-
-export interface NavigationItem {
-  label: string
-  href: string
-}
-
-export interface Stat {
-  value: number
-  label: string
-  suffix: string
-}
-
-export interface AboutContent {
-  eyebrow: string
-  title: string
-  description: string
-}
-
-export interface Value {
-  title: string
-  description: string
-  icon: "trophy" | "lightbulb" | "users" | "target"
-}
-
-export interface Event {
-  id: string
-  title: string
-  date: string // ISO date string
-  time?: string
-  location: string
-  description: string
-  image: string
-  category: string
-  href?: string
-  status?: "upcoming" | "past"
-}
-
-export interface TeamMember {
-  id: string
-  name: string
-  role: string
-  bio: string
-  image: string
-  linkedin?: string
-}
-
-export interface Partner {
-  name: string
-  logo: string
-  href?: string
-}
+export type { AboutContent, Event, NavigationItem, Partner, Pole, SiteConfig, Stat, TeamMember, Value } from "./content/types"
 
 // -----------------------------------------------------------------------------
 // SITE CONFIGURATION
@@ -110,6 +53,17 @@ export const siteConfig: SiteConfig = {
 }
 
 // -----------------------------------------------------------------------------
+// BRAND ASSETS
+// -----------------------------------------------------------------------------
+
+export const brandAssets = {
+  logo: "/icon.svg",
+  // Replace with the official full group picture once added to /public
+  // Suggested filename: /public/group-photo.jpg
+  groupPhoto: "/placeholder.jpg",
+} as const
+
+// -----------------------------------------------------------------------------
 // ABOUT
 // -----------------------------------------------------------------------------
 
@@ -121,6 +75,55 @@ export const aboutContent: AboutContent = {
 }
 
 // -----------------------------------------------------------------------------
+// PÔLES
+// -----------------------------------------------------------------------------
+
+export const poles: Pole[] = [
+  {
+    id: "partenariats",
+    name: "Partenariats",
+    description: "Développe les relations avec les acteurs de l’écosystème santé et finance les événements.",
+    image: "/professional-man-portrait-business-development.jpg",
+  },
+  {
+    id: "annonceurs",
+    name: "Annonceurs",
+    description: "Coordonne les partenariats annonceurs et assure la visibilité des marques sur nos supports.",
+    image: "/professional-woman-portrait-finance.jpg",
+  },
+  {
+    id: "sante-publique",
+    name: "Santé Publique",
+    description: "Porte les initiatives de prévention, sensibilisation et actions à impact en santé.",
+    image: "/health-innovation-workshop-students.jpg",
+  },
+  {
+    id: "alumni-cohesion",
+    name: "Alumni & Cohésion",
+    description: "Anime le réseau, crée du lien, et organise des temps forts pour la communauté.",
+    image: "/creative-young-man-portrait-marketing.jpg",
+  },
+  {
+    id: "table-ronde",
+    name: "Table Ronde",
+    description: "Organise la conférence annuelle : programme, intervenants, logistique et expérience participants.",
+    image: "/pharmaceutical-conference-business-professionals.jpg",
+  },
+  {
+    id: "nuit-des-caducees",
+    name: "Nuit des Caducées",
+    description: "Prépare le gala et la remise des prix : production, scénographie, invités et partenaires.",
+    image: "/elegant-gala-dinner-pharmaceutical-event.jpg",
+  },
+  {
+    id: "communication",
+    name: "Communication",
+    description: "Déploie l’identité de marque et la stratégie de contenus (réseaux sociaux, supports, site).",
+    image: "/professional-young-woman-portrait-business.jpg",
+  },
+] as const
+
+// -----------------------------------------------------------------------------
 // NAVIGATION
 // -----------------------------------------------------------------------------
 
@@ -129,6 +132,7 @@ export const navigationItems: NavigationItem[] = [
   { label: "À Propos", href: "#about" },
   { label: "Événements", href: "#events" },
   { label: "Équipe", href: "#team" },
+  { label: "Pôles", href: "#poles" },
   { label: "Partenaires", href: "#partners" },
   { label: "Contact", href: "#contact" },
 ]

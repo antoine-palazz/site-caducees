@@ -3,9 +3,13 @@
 import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { TeamCard } from "@/components/ui/team-card"
-import { teamMembers } from "@/lib/site-data"
+import type { TeamMember } from "@/lib/content/types"
 
-export function TeamSection() {
+export interface TeamSectionProps {
+  teamMembers: TeamMember[]
+}
+
+export function TeamSection({ teamMembers }: TeamSectionProps) {
   const { ref, isInView } = useScrollAnimation()
 
   return (
@@ -20,7 +24,9 @@ export function TeamSection() {
           )}
         >
           <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">L'Équipe</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">Le Bureau</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6 text-balance caducees-underline">
+            Le Bureau
+          </h2>
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed text-pretty">
             Le Bureau Restreint pilote l’association et coordonne les pôles (Partenariats, Santé Publique, Alumni &
             Cohésion, Table Ronde, Nuit des Caducées, Communication).

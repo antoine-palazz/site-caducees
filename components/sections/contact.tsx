@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { siteConfig } from "@/lib/site-data"
 
 interface FormErrors {
   firstName?: string
@@ -30,7 +29,11 @@ interface FormData {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-export function ContactSection() {
+export interface ContactSectionProps {
+  email: string
+}
+
+export function ContactSection({ email }: ContactSectionProps) {
   const { ref, isInView } = useScrollAnimation()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
@@ -98,7 +101,7 @@ export function ContactSection() {
       formData.message,
     ].join("\n")
 
-    const mailtoUrl = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     window.location.href = mailtoUrl
     setIsSubmitted(true)
   }
@@ -115,7 +118,7 @@ export function ContactSection() {
           )}
         >
           <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">Contact</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6 text-balance caducees-underline">
             Rejoignez-nous
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed text-pretty">
@@ -138,8 +141,8 @@ export function ContactSection() {
               <h3 className="text-2xl font-semibold text-foreground mb-3">Presque fini</h3>
               <p className="text-muted-foreground">
                 Votre client email va s’ouvrir avec un message pré-rempli. Si rien ne se passe, écrivez-nous à{" "}
-                <a className="text-gold hover:underline" href={`mailto:${siteConfig.contact.email}`}>
-                  {siteConfig.contact.email}
+                <a className="text-gold hover:underline" href={`mailto:${email}`}>
+                  {email}
                 </a>
                 .
               </p>

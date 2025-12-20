@@ -21,7 +21,7 @@ export function TeamCard({ name, role, bio, image, linkedin, index }: TeamCardPr
     <div
       ref={ref}
       className={cn(
-        "group relative bg-card border border-border rounded-lg overflow-hidden transition-all duration-500 hover:border-gold/50",
+        "group relative bg-card border border-border rounded-xl overflow-hidden shadow-sm transition-all duration-500 hover:border-gold/50 hover:shadow-md before:content-[''] before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-gold/70",
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
       )}
       style={{ transitionDelay: `${index * 100}ms` }}
@@ -35,7 +35,7 @@ export function TeamCard({ name, role, bio, image, linkedin, index }: TeamCardPr
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent opacity-60" />
 
         {/* Overlay on hover */}
         {linkedin ? (

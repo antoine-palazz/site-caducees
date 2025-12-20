@@ -28,7 +28,7 @@ export function EventCard({ title, date, time, location, description, image, cat
     <div
       ref={ref}
       className={cn(
-        "group bg-card border border-border rounded-lg overflow-hidden transition-all duration-500 hover:border-gold/50",
+        "group relative bg-card border border-border rounded-xl overflow-hidden shadow-sm transition-all duration-500 hover:border-gold/50 hover:shadow-md before:content-[''] before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-gold/70",
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
       )}
       style={{ transitionDelay: `${index * 100}ms` }}
@@ -42,7 +42,7 @@ export function EventCard({ title, date, time, location, description, image, cat
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
         <Badge className="absolute top-4 left-4 bg-gold text-gold-foreground">{category}</Badge>
       </div>
 

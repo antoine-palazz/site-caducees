@@ -3,10 +3,11 @@
 import type React from "react"
 
 import { Trophy, Lightbulb, Users, Target } from "lucide-react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { AnimatedCounter } from "@/components/ui/animated-counter"
-import { aboutContent, stats, values } from "@/lib/site-data"
+import type { AboutContent, Stat, Value } from "@/lib/content/types"
 
 const iconMap = {
   trophy: Trophy,
@@ -15,8 +16,17 @@ const iconMap = {
   target: Target,
 }
 
-export function AboutSection() {
+export interface AboutSectionProps {
+  aboutContent: AboutContent
+  brandAssets: { logo: string; groupPhoto: string }
+  stats: Stat[]
+  values: Value[]
+}
+
+export function AboutSection({ aboutContent, brandAssets, stats, values }: AboutSectionProps) {
   const { ref: sectionRef, isInView } = useScrollAnimation()
+  const showPlaceholderNote =
+    process.env.NODE_ENV !== "production" && brandAssets.groupPhoto === "/placeholder.jpg"
 
   return (
     <section id="about" className="py-20 lg:py-32 bg-background">
@@ -30,13 +40,34 @@ export function AboutSection() {
           )}
         >
           <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">{aboutContent.eyebrow}</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6 text-balance caducees-underline">
             {aboutContent.title}
           </h2>
           <p className="max-w-3xl mx-auto text-lg text-muted-foreground leading-relaxed text-pretty">
             {aboutContent.description}
           </p>
         </div>
+
+        {/* Group picture */}
+        <figure className="max-w-5xl mx-auto mb-16 lg:mb-20">
+          <div className="relative aspect-[16/7] rounded-xl overflow-hidden border border-border shadow-sm">
+            <Image
+              src={brandAssets.groupPhoto}
+              alt="Photo de groupe de l’association Les Caducées"
+              fill
+              sizes="(max-width: 1024px) 100vw, 960px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/45 via-transparent to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-0.5 bg-gold/70" />
+          </div>
+          {showPlaceholderNote ? (
+            <figcaption className="mt-3 text-center text-sm text-muted-foreground">
+              Note dev : remplacez l’image par la photo officielle (ex. <span className="font-medium">/public/group-photo.jpg</span>)
+              et mettez à jour <span className="font-medium">brandAssets.groupPhoto</span>.
+            </figcaption>
+          ) : null}
+        </figure>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-20 lg:mb-28">
@@ -79,7 +110,7 @@ function ValueCard({ title, description, icon: Icon, index }: ValueCardProps) {
     <article
       ref={ref}
       className={cn(
-        "group p-6 lg:p-8 bg-card border border-border rounded-lg transition-all duration-500 hover:border-gold/50 hover:bg-card/80",
+        "group relative p-6 lg:p-8 bg-card border border-border rounded-xl shadow-sm transition-all duration-500 hover:border-gold/50 hover:shadow-md before:content-[''] before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-gold/70",
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
       )}
       style={{ transitionDelay: `${index * 100}ms` }}
