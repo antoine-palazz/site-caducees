@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     return new NextResponse("Invalid preview secret", { status: 401 })
   }
 
-  draftMode().enable()
+  ;(await draftMode()).enable()
 
   const path = isSafeReturnTo(returnTo) ? returnTo : resolvePreviewPath(type, slug)
   return NextResponse.redirect(new URL(path, req.url))

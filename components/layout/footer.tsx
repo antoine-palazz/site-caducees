@@ -139,7 +139,7 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
               </li>
               <li>
                 <Link href="/statuts" className="text-sm text-primary-foreground/75 hover:text-gold transition-colors">
-                  Statuts de l'association
+                  Statuts de l’association
                 </Link>
               </li>
             </ul>

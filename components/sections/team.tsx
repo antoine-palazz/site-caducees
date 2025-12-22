@@ -23,7 +23,7 @@ export function TeamSection({ teamMembers }: TeamSectionProps) {
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >
-          <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">L'Équipe</span>
+          <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">L’Équipe</span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6 text-balance caducees-underline">
             Le Bureau
           </h2>

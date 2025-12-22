@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
   const tags = tagsForModel(model)
   const paths = pathsForTags(tags)
 
-  for (const tag of tags) revalidateTag(tag)
+  for (const tag of tags) revalidateTag(tag, "default")
   for (const path of paths) revalidatePath(path)
 
   return NextResponse.json({ ok: true, model, tags, paths, now: Date.now() })

@@ -38,7 +38,7 @@ function mapLegalSingleton(x: any, fallback: LegalPageContent): LegalPageContent
 export async function getLegalMentions(): Promise<LegalPageContent> {
   if (!process.env.STRAPI_URL) return FALLBACK_MENTIONS
   try {
-    const x = await strapiFetch<any>("/api/legal-mentions", { query: strapiPopulateAll(), tags: ["tag:legal"] })
+    const x = await strapiFetch<any>("/api/legal-mention", { query: strapiPopulateAll(), tags: ["tag:legal"] })
     return mapLegalSingleton(x, FALLBACK_MENTIONS)
   } catch {
     return FALLBACK_MENTIONS
@@ -58,7 +58,7 @@ export async function getLegalPrivacy(): Promise<LegalPageContent> {
 export async function getLegalStatuts(): Promise<LegalPageContent> {
   if (!process.env.STRAPI_URL) return FALLBACK_STATUTS
   try {
-    const x = await strapiFetch<any>("/api/legal-statuts", { query: strapiPopulateAll(), tags: ["tag:legal"] })
+    const x = await strapiFetch<any>("/api/legal-statut", { query: strapiPopulateAll(), tags: ["tag:legal"] })
     return mapLegalSingleton(x, FALLBACK_STATUTS)
   } catch {
     return FALLBACK_STATUTS

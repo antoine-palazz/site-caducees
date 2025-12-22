@@ -5,6 +5,7 @@ import { draftMode } from "next/headers"
 type StrapiFetchOptions = {
   query?: Record<string, string | number | boolean | undefined>
   tags?: string[]
+  revalidate?: number
 }
 
 function getEnv(name: string): string | undefined {
@@ -17,7 +18,7 @@ export function getStrapiBaseUrl(): string | undefined {
 }
 
 export function getStrapiApiToken(): string | undefined {
-  return getEnv("STRAPI_API_TOKEN")
+  return getEnv("STRAPI_API_TOKEN") ?? getEnv("STRAPI_TOKEN")
 }
 
 function withQuery(url: URL, query?: StrapiFetchOptions["query"]) {
@@ -37,15 +38,24 @@ async function fetchOnce<T>(apiPath: string, options: StrapiFetchOptions): Promi
 
   const url = withQuery(new URL(apiPath, base), options.query)
   const token = getStrapiApiToken()
-  const isDraft = draftMode().isEnabled
+  const isDraft = (await draftMode()).isEnabled
+
+  const nextOptions =
+    options.tags?.length || typeof options.revalidate === "number"
+      ? {
+          ...(options.tags?.length ? { tags: options.tags } : {}),
+          ...(typeof options.revalidate === "number" ? { revalidate: options.revalidate } : {}),
+        }
+      : undefined
 
   const res = await fetch(url, {
     method: "GET",
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(isDraft ? { "strapi-encode-source-maps": "true" } : {}),
     },
     cache: isDraft ? "no-store" : "force-cache",
-    next: options.tags?.length ? { tags: options.tags } : undefined,
+    next: nextOptions,
   })
 
   if (!res.ok) {
@@ -67,7 +77,7 @@ async function fetchOnce<T>(apiPath: string, options: StrapiFetchOptions): Promi
  *   then retry with v5 params if needed.
  */
 export async function strapiFetch<T>(apiPath: string, options: StrapiFetchOptions = {}): Promise<T> {
-  const isDraft = draftMode().isEnabled
+  const isDraft = (await draftMode()).isEnabled
 
   if (!isDraft) {
     return await fetchOnce<T>(apiPath, options)

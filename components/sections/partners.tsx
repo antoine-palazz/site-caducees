@@ -20,7 +20,7 @@ export function PartnersSection({ partners }: PartnersSectionProps) {
           isInView={isInView}
           eyebrow="Partenaires"
           title="Ils nous font confiance"
-          description="Nous collaborons avec les leaders de l'industrie pharmaceutique et de la santé pour offrir les meilleures opportunités à nos membres."
+          description="Nous collaborons avec les leaders de l’industrie pharmaceutique et de la santé pour offrir les meilleures opportunités à nos membres."
         />
 
         {/* Partners Logos */}

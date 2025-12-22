@@ -57,9 +57,9 @@ export function ContactSection({ email }: ContactSectionProps) {
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "L'email est requis"
+      newErrors.email = "L’email est requis"
     } else if (!EMAIL_REGEX.test(formData.email)) {
-      newErrors.email = "L'email n'est pas valide"
+      newErrors.email = "L’email n’est pas valide"
     }
 
     if (!formData.subject.trim()) {
