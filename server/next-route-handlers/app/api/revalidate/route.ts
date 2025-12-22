@@ -1,3 +1,6 @@
+// Archived route handler (disabled for GitHub Pages static export).
+// Copy back to `app/api/revalidate/route.ts` if you deploy to a server runtime.
+
 import { NextRequest, NextResponse } from "next/server"
 import { revalidatePath, revalidateTag } from "next/cache"
 

@@ -1,3 +1,6 @@
+// Archived route handler (disabled for GitHub Pages static export).
+// Copy back to `app/api/exit-draft/route.ts` if you deploy to a server runtime.
+
 import { draftMode } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 
