@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { withBasePath } from "@/lib/base-path"
@@ -13,18 +12,27 @@ export interface HeroSectionProps {
 export function HeroSection({ tagline }: HeroSectionProps) {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={withBasePath("/demo/pharmaceutical-laboratory-modern-facility.jpg")}
-          alt=""
+      {/* Brand background + subtle logo watermark (better UX than a heavy photo) */}
+      <div className="absolute inset-0 z-0" style={{ backgroundColor: "var(--caducees-navy)" }}>
+        <div
           aria-hidden="true"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+          className="absolute inset-0 pointer-events-none select-none opacity-[0.10] mix-blend-screen grayscale brightness-150 contrast-125"
+          style={{
+            backgroundImage: `url(${withBasePath("/logo.JPG")})`,
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "min(760px, 85vw)",
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/70 to-primary/95" />
+        {/* Contrast overlay to keep text crisp across viewports */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(23, 32, 61, 0.94) 0%, rgba(23, 32, 61, 0.72) 45%, rgba(23, 32, 61, 0.96) 100%)",
+          }}
+        />
       </div>
 
       {/* Content */}

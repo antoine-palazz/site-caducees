@@ -5,9 +5,10 @@
 
 :root {
   /* Les Caducées (brand-first, light UI) */
-  --caducees-navy: oklch(0.28 0.055 255);
-  --caducees-navy-deep: oklch(0.22 0.06 255);
-  --caducees-gold: oklch(0.78 0.14 85);
+  /* Brand palette (requested) */
+  --caducees-navy: #17203D; /* dark blue */
+  --caducees-navy-deep: #17203D; /* keep brand-consistent for headings/body */
+  --caducees-gold: #DCB351; /* golden */
 
   --background: oklch(0.985 0.006 95);
   --foreground: var(--caducees-navy-deep);
@@ -47,24 +48,25 @@
 }
 
 .dark {
-  --background: oklch(0.12 0.03 255);
+  /* Brand-aligned dark theme (navy surface + gold accents) */
+  --background: var(--caducees-navy); /* #17203D */
   --foreground: oklch(0.985 0.006 95);
-  --card: oklch(0.16 0.03 255);
+  --card: color-mix(in srgb, var(--caducees-navy) 92%, white);
   --card-foreground: oklch(0.985 0.006 95);
-  --popover: oklch(0.16 0.03 255);
+  --popover: color-mix(in srgb, var(--caducees-navy) 92%, white);
   --popover-foreground: oklch(0.985 0.006 95);
-  --primary: oklch(0.92 0.02 95);
-  --primary-foreground: oklch(0.22 0.06 255);
-  --secondary: oklch(0.2 0.03 255);
+  --primary: color-mix(in srgb, var(--caducees-navy) 88%, white);
+  --primary-foreground: oklch(0.985 0.006 95);
+  --secondary: color-mix(in srgb, var(--caducees-navy) 80%, white);
   --secondary-foreground: oklch(0.985 0.006 95);
-  --muted: oklch(0.2 0.03 255);
-  --muted-foreground: oklch(0.78 0.01 95);
+  --muted: color-mix(in srgb, var(--caducees-navy) 82%, white);
+  --muted-foreground: color-mix(in srgb, white 78%, var(--caducees-navy));
   --accent: var(--caducees-gold);
   --accent-foreground: oklch(0.22 0.06 255);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.985 0.006 95);
-  --border: oklch(0.24 0.03 255);
-  --input: oklch(0.22 0.03 255);
+  --border: color-mix(in srgb, white 14%, var(--caducees-navy));
+  --input: color-mix(in srgb, white 10%, var(--caducees-navy));
   --ring: var(--caducees-gold);
   --chart-1: var(--caducees-gold);
   --chart-2: oklch(0.75 0.13 190);
