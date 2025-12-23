@@ -21,7 +21,7 @@ interface EventCardProps {
 }
 
 export function EventCard({ title, date, time, location, description, image, category, index }: EventCardProps) {
-  const { ref, isInView } = useScrollAnimation<HTMLDivElement>()
+  const { ref, isInView } = useScrollAnimation<HTMLButtonElement>()
 
   const formattedDate = format(parseISO(date), "d MMMM yyyy", { locale: fr })
 
