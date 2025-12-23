@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { withBasePath } from "@/lib/base-path"
 
 interface EventCardProps {
   title: string
@@ -41,7 +42,7 @@ export function EventCard({ title, date, time, location, description, image, cat
           {/* Image */}
           <div className="relative h-48 overflow-hidden">
             <Image
-              src={image || "/placeholders/placeholder.svg"}
+              src={withBasePath(image || "/placeholders/placeholder.svg")}
               alt={title}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -82,7 +83,7 @@ export function EventCard({ title, date, time, location, description, image, cat
           {/* Large image */}
           <div className="relative w-full aspect-[16/9] bg-muted shrink-0">
             <Image
-              src={image || "/placeholders/placeholder.svg"}
+              src={withBasePath(image || "/placeholders/placeholder.svg")}
               alt={title}
               fill
               sizes="(max-width: 768px) 100vw, 720px"

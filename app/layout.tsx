@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SITE_URL } from "@/lib/site-url"
+import { withBasePath } from "@/lib/base-path"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   icons: {
     // Keep this aligned with assets in `public/`.
     // (The repo currently ships `public/logo.JPG`, but no dedicated favicon set.)
-    icon: [{ url: "/logo.JPG" }],
+    icon: [{ url: withBasePath("/logo.JPG") }],
   },
   openGraph: {
     title: "Les Caducées | ESCP Business School",

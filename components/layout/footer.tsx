@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Instagram, Linkedin, Twitter, Mail, MapPin, Phone } from "lucide-react"
 import type { NavigationItem, SiteConfig } from "@/lib/content/types"
+import { withBasePath } from "@/lib/base-path"
 
 export interface FooterProps {
   logo: string
@@ -20,7 +21,7 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
               <span className="flex items-center gap-3">
                 <span className="relative size-9 shrink-0">
                   <Image
-                    src={logo}
+                    src={withBasePath(logo)}
                     alt=""
                     aria-hidden="true"
                     fill

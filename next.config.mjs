@@ -1,8 +1,27 @@
 /** @type {import('next').NextConfig} */
-const isGitHubPages = process.env.GITHUB_PAGES === "true"
-const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1]
-const isUserOrOrgPages = !!repoName && !!process.env.GITHUB_REPOSITORY_OWNER && repoName === `${process.env.GITHUB_REPOSITORY_OWNER}.github.io`
-const basePath = isGitHubPages && repoName && !isUserOrOrgPages ? `/${repoName}` : ""
+import path from "node:path"
+
+const normalizeBasePath = (raw) => {
+  if (!raw) return ""
+  const trimmed = String(raw).trim()
+  if (!trimmed || trimmed === "/") return ""
+  return trimmed.startsWith("/") ? trimmed.replace(/\/$/, "") : `/${trimmed.replace(/\/$/, "")}`
+}
+
+// Allow explicit basePath for local builds, e.g. BASE_PATH="/my-repo"
+const explicitBasePath = normalizeBasePath(process.env.BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH)
+
+// GitHub Pages mode is enabled either via GITHUB_PAGES=true (workflow) or an explicit basePath (local build).
+const isGitHubPages = process.env.GITHUB_PAGES === "true" || !!explicitBasePath
+
+const repoNameFromEnv = process.env.GITHUB_REPOSITORY?.split("/")[1]
+// If building locally for Pages with only GITHUB_PAGES=true, fall back to folder name.
+const repoName = repoNameFromEnv || (isGitHubPages ? path.basename(process.cwd()) : undefined)
+
+const owner = process.env.GITHUB_REPOSITORY_OWNER
+const isUserOrOrgPages = !!repoName && !!owner && repoName === `${owner}.github.io`
+
+const basePath = explicitBasePath || (isGitHubPages && repoName && !isUserOrOrgPages ? `/${repoName}` : "")
 
 function getImagesConfig() {
   const patterns = []
@@ -37,6 +56,14 @@ const nextConfig = {
    * - keep Next.js image optimization enabled (except for GitHub Pages)
    */
   images: getImagesConfig(),
+
+  /**
+   * Expose the computed basePath to client/server code so we can prefix public asset URLs
+   * (GitHub Pages serves the site under `/<repo>/`, so `/demo/x.jpg` would 404 without this).
+   */
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
 
   ...(isGitHubPages
     ? {

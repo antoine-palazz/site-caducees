@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { withBasePath } from "@/lib/base-path"
 
 export interface HeroSectionProps {
   tagline: string
@@ -15,7 +16,7 @@ export function HeroSection({ tagline }: HeroSectionProps) {
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/demo/pharmaceutical-laboratory-modern-facility.jpg"
+          src={withBasePath("/demo/pharmaceutical-laboratory-modern-facility.jpg")}
           alt=""
           aria-hidden="true"
           fill

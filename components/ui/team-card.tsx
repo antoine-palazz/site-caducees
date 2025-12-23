@@ -4,6 +4,7 @@ import type React from "react"
 
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { withBasePath } from "@/lib/base-path"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 interface TeamCardProps {
@@ -24,7 +25,7 @@ export function TeamCard({ name, role, bio, image, linkedin, index }: TeamCardPr
       {/* Image */}
       <div className="relative aspect-[4/5] overflow-hidden">
         <Image
-          src={image || "/placeholders/placeholder.svg"}
+          src={withBasePath(image || "/placeholders/placeholder.svg")}
           alt={name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -61,7 +62,7 @@ export function TeamCard({ name, role, bio, image, linkedin, index }: TeamCardPr
     return (
       <div ref={ref} className={baseClassName} style={{ transitionDelay: `${index * 100}ms` }}>
         {Card}
-      </div>
+    </div>
     )
   }
 

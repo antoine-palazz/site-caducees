@@ -5,6 +5,7 @@ import type React from "react"
 import { Trophy, Lightbulb, Users, Target } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { withBasePath } from "@/lib/base-path"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { AnimatedCounter } from "@/components/ui/animated-counter"
 import type { AboutContent, Stat, Value } from "@/lib/content/types"
@@ -52,7 +53,7 @@ export function AboutSection({ aboutContent, brandAssets, stats, values }: About
         <figure className="max-w-5xl mx-auto mb-16 lg:mb-20">
           <div className="relative aspect-[16/7] rounded-xl overflow-hidden border border-border shadow-sm">
             <Image
-              src={brandAssets.groupPhoto}
+              src={withBasePath(brandAssets.groupPhoto)}
               alt="Photo de groupe de l’association Les Caducées"
               fill
               sizes="(max-width: 1024px) 100vw, 960px"

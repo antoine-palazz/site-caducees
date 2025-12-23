@@ -5,6 +5,7 @@ import type React from "react"
 import { Shield, Megaphone, Handshake, HeartPulse, Users, Mic, Sparkles } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { withBasePath } from "@/lib/base-path"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import type { Pole } from "@/lib/content/types"
 
@@ -77,7 +78,7 @@ function PoleCard({ name, description, image, icon, index }: PoleCardProps) {
     >
       <div className="relative h-44">
         <Image
-          src={image}
+          src={withBasePath(image)}
           alt={`Illustration du pôle ${name}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -94,8 +95,8 @@ function PoleCard({ name, description, image, icon, index }: PoleCardProps) {
             </div>
           ) : null}
           <div>
-            <h3 className="text-xl font-semibold text-foreground mb-2">{name}</h3>
-            <p className="text-muted-foreground leading-relaxed">{description}</p>
+        <h3 className="text-xl font-semibold text-foreground mb-2">{name}</h3>
+        <p className="text-muted-foreground leading-relaxed">{description}</p>
           </div>
         </div>
       </div>

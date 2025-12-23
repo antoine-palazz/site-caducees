@@ -31,6 +31,23 @@ Ce repo peut être déployé sur **GitHub Pages** via une **GitHub Action** (dé
 - `next.config.mjs` active alors `output: "export"` + le `basePath` automatiquement (pour les project pages)
 - Le site généré est publié depuis le dossier `out/`
 
+### Build local pour GitHub Pages (important)
+
+Sur GitHub Pages, le site est servi sous `/<repo>/`.  
+Si vous exportez/build **en local** sans `basePath`, les URLs d’assets comme `/demo/...` pointeront vers la racine du domaine et vos images seront en 404 sur Pages.
+
+- **Option A (recommandée)**: activer le mode Pages + basePath via env
+
+```bash
+GITHUB_PAGES=true pnpm build
+```
+
+Si votre dossier local ne correspond pas au nom du repo GitHub Pages, forcez le chemin:
+
+```bash
+GITHUB_PAGES=true BASE_PATH="/<repo>" pnpm build
+```
+
 ### Build avec contenu Strapi (build-time)
 
 Ajoutez ces **GitHub Secrets** dans le repo du site (Settings → Secrets and variables → Actions):

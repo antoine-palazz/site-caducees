@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { withBasePath } from "@/lib/base-path"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle, SheetHeader } from "@/components/ui/sheet"
 import type { NavigationItem } from "@/lib/content/types"
@@ -45,7 +46,7 @@ export function Navbar({ logo, navigationItems }: NavbarProps) {
             <span className="flex items-center gap-3">
               <span className="relative size-8 lg:size-9 shrink-0">
                 <Image
-                  src={logo}
+                  src={withBasePath(logo)}
                   alt=""
                   aria-hidden="true"
                   fill

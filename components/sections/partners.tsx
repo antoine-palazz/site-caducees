@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import type { Partner } from "@/lib/content/types"
 import { SectionHeader } from "@/components/ui/section-header"
+import { withBasePath } from "@/lib/base-path"
 
 export interface PartnersSectionProps {
   partners: Partner[]
@@ -47,7 +48,7 @@ function PartnerLogo({ name, logo, href, index }: PartnerLogoProps) {
   const content = (
     <div className="flex items-center justify-center p-4">
       <Image
-        src={logo || "/placeholders/placeholder.svg"}
+        src={withBasePath(logo || "/placeholders/placeholder.svg")}
         alt={`Logo de ${name}`}
         width={160}
         height={80}
