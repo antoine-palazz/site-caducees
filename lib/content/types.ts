@@ -67,11 +67,17 @@ export interface Partner {
   href?: string
 }
 
+export type PoleIcon = "shield" | "megaphone" | "handshake" | "heart-pulse" | "users" | "mic" | "sparkles"
+
 export interface Pole {
   id: string
   name: string
   description: string
   image: string
+  /**
+   * Optional icon identifier. Static fallback content uses this; CMS content may omit it.
+   */
+  icon?: PoleIcon
 }
 
 

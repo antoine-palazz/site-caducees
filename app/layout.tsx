@@ -34,21 +34,9 @@ export const metadata: Metadata = {
     "Nuit des Caducées",
   ],
   icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
+    // Keep this aligned with assets in `public/`.
+    // (The repo currently ships `public/logo.JPG`, but no dedicated favicon set.)
+    icon: [{ url: "/logo.JPG" }],
   },
   openGraph: {
     title: "Les Caducées | ESCP Business School",
@@ -57,14 +45,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     url: SITE_URL,
-    images: [{ url: "/icon.svg" }],
+    images: [{ url: "/full_group.jpg" }],
   },
   twitter: {
     card: "summary",
     title: "Les Caducées | ESCP Business School",
     description:
       "Association étudiante du MSc Management Pharmaceutique & Biotechnologies (ESCP) : événements, partenariats et actions de santé publique.",
-    images: ["/icon.svg"],
+    images: ["/full_group.jpg"],
   },
   alternates: {
     canonical: "/",

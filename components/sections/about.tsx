@@ -26,7 +26,7 @@ export interface AboutSectionProps {
 export function AboutSection({ aboutContent, brandAssets, stats, values }: AboutSectionProps) {
   const { ref: sectionRef, isInView } = useScrollAnimation()
   const showPlaceholderNote =
-    process.env.NODE_ENV !== "production" && brandAssets.groupPhoto === "/placeholder.jpg"
+    process.env.NODE_ENV !== "production" && brandAssets.groupPhoto === "/placeholders/placeholder.jpg"
 
   return (
     <section id="about" className="py-20 lg:py-32 bg-background">

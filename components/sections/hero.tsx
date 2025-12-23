@@ -15,7 +15,7 @@ export function HeroSection({ tagline }: HeroSectionProps) {
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/pharmaceutical-laboratory-modern-facility.jpg"
+          src="/demo/pharmaceutical-laboratory-modern-facility.jpg"
           alt=""
           aria-hidden="true"
           fill

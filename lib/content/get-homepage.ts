@@ -201,7 +201,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
             time: typeof attrs.time === "string" ? attrs.time : undefined,
             location: ensureString(attrs.location, "events[].location"),
             description: ensureString(attrs.description, "events[].description"),
-            image: mapStrapiMediaUrl(attrs.image) ?? "/placeholder.jpg",
+            image: mapStrapiMediaUrl(attrs.image) ?? "/placeholders/placeholder.jpg",
             category: ensureString(attrs.category, "events[].category"),
             href: typeof attrs.href === "string" ? attrs.href : undefined,
             status: attrs.status === "upcoming" || attrs.status === "past" ? attrs.status : undefined,
@@ -217,7 +217,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
             name: ensureString(attrs.name, "teamMembers[].name"),
             role: ensureString(attrs.role, "teamMembers[].role"),
             bio: ensureString(attrs.bio, "teamMembers[].bio"),
-            image: mapStrapiMediaUrl(attrs.image) ?? "/placeholder-user.jpg",
+            image: mapStrapiMediaUrl(attrs.image) ?? "/placeholders/placeholder-user.jpg",
             linkedin: typeof attrs.linkedin === "string" ? attrs.linkedin : undefined,
           }
         })
@@ -230,7 +230,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
             id: String(row?.id ?? attrs.externalId ?? attrs.name ?? ""),
             name: ensureString(attrs.name, "poles[].name"),
             description: ensureString(attrs.description, "poles[].description"),
-            image: mapStrapiMediaUrl(attrs.image) ?? "/placeholder.jpg",
+            image: mapStrapiMediaUrl(attrs.image) ?? "/placeholders/placeholder.jpg",
           }
         })
       : []
@@ -240,7 +240,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
           const attrs = unwrap<any>(row)
           return {
             name: ensureString(attrs.name, "partners[].name"),
-            logo: mapStrapiMediaUrl(attrs.logo) ?? "/placeholder-logo.svg",
+            logo: mapStrapiMediaUrl(attrs.logo) ?? "/placeholders/placeholder-logo.svg",
             href: typeof attrs.href === "string" ? attrs.href : undefined,
           }
         })

@@ -1,9 +1,22 @@
 "use client"
 
+import type React from "react"
+
+import { Shield, Megaphone, Handshake, HeartPulse, Users, Mic, Sparkles } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import type { Pole } from "@/lib/content/types"
+
+const iconMap: Record<NonNullable<Pole["icon"]>, React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>> = {
+  shield: Shield,
+  megaphone: Megaphone,
+  handshake: Handshake,
+  "heart-pulse": HeartPulse,
+  users: Users,
+  mic: Mic,
+  sparkles: Sparkles,
+}
 
 export interface PolesSectionProps {
   poles: Pole[]
@@ -45,11 +58,13 @@ interface PoleCardProps {
   name: string
   description: string
   image: string
+  icon?: Pole["icon"]
   index: number
 }
 
-function PoleCard({ name, description, image, index }: PoleCardProps) {
+function PoleCard({ name, description, image, icon, index }: PoleCardProps) {
   const { ref, isInView } = useScrollAnimation<HTMLDivElement>()
+  const Icon = icon ? iconMap[icon] : null
 
   return (
     <article
@@ -63,8 +78,7 @@ function PoleCard({ name, description, image, index }: PoleCardProps) {
       <div className="relative h-44">
         <Image
           src={image}
-          alt=""
-          aria-hidden="true"
+          alt={`Illustration du pôle ${name}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -73,8 +87,17 @@ function PoleCard({ name, description, image, index }: PoleCardProps) {
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-foreground mb-2">{name}</h3>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
+        <div className="flex items-start gap-4">
+          {Icon ? (
+            <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+              <Icon className="w-5 h-5 text-gold" aria-hidden />
+            </div>
+          ) : null}
+          <div>
+            <h3 className="text-xl font-semibold text-foreground mb-2">{name}</h3>
+            <p className="text-muted-foreground leading-relaxed">{description}</p>
+          </div>
+        </div>
       </div>
     </article>
   )

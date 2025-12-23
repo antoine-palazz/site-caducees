@@ -47,7 +47,7 @@ function PartnerLogo({ name, logo, href, index }: PartnerLogoProps) {
   const content = (
     <div className="flex items-center justify-center p-4">
       <Image
-        src={logo || "/placeholder.svg"}
+        src={logo || "/placeholders/placeholder.svg"}
         alt={`Logo de ${name}`}
         width={160}
         height={80}

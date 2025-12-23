@@ -57,10 +57,8 @@ export const siteConfig: SiteConfig = {
 // -----------------------------------------------------------------------------
 
 export const brandAssets = {
-  logo: "/icon.svg",
-  // Replace with the official full group picture once added to /public
-  // Suggested filename: /public/group-photo.jpg
-  groupPhoto: "/placeholder.jpg",
+  logo: "/logo.JPG",
+  groupPhoto: "/full_group.jpg",
 } as const
 
 // -----------------------------------------------------------------------------
@@ -80,46 +78,53 @@ export const aboutContent: AboutContent = {
 
 export const poles: Pole[] = [
   {
-    id: "partenariats",
-    name: "Partenariats",
-    description: "Développe les relations avec les acteurs de l’écosystème santé et finance les événements.",
-    image: "/professional-man-portrait-business-development.jpg",
-  },
-  {
-    id: "annonceurs",
-    name: "Annonceurs",
-    description: "Coordonne les partenariats annonceurs et assure la visibilité des marques sur nos supports.",
-    image: "/professional-woman-portrait-finance.jpg",
-  },
-  {
-    id: "sante-publique",
-    name: "Santé Publique",
-    description: "Porte les initiatives de prévention, sensibilisation et actions à impact en santé.",
-    image: "/health-innovation-workshop-students.jpg",
-  },
-  {
-    id: "alumni-cohesion",
-    name: "Alumni & Cohésion",
-    description: "Anime le réseau, crée du lien, et organise des temps forts pour la communauté.",
-    image: "/creative-young-man-portrait-marketing.jpg",
-  },
-  {
-    id: "table-ronde",
-    name: "Table Ronde",
-    description: "Organise la conférence annuelle : programme, intervenants, logistique et expérience participants.",
-    image: "/pharmaceutical-conference-business-professionals.jpg",
-  },
-  {
-    id: "nuit-des-caducees",
-    name: "Nuit des Caducées",
-    description: "Prépare le gala et la remise des prix : production, scénographie, invités et partenaires.",
-    image: "/elegant-gala-dinner-pharmaceutical-event.jpg",
+    id: "bureau-restreint",
+    name: "Bureau Restreint",
+    description: "Pilote l’association, coordonne les pôles et assure la gouvernance au quotidien.",
+    image: "/poles/bureau_restreint.jpg",
+    icon: "shield",
   },
   {
     id: "communication",
     name: "Communication",
     description: "Déploie l’identité de marque et la stratégie de contenus (réseaux sociaux, supports, site).",
-    image: "/professional-young-woman-portrait-business.jpg",
+    image: "/poles/communication.jpg",
+    icon: "megaphone",
+  },
+  {
+    id: "partenariats",
+    name: "Partenariats",
+    description: "Développe les relations avec l’écosystème santé et sécurise les ressources pour nos projets.",
+    image: "/poles/partenariats.jpg",
+    icon: "handshake",
+  },
+  {
+    id: "alumni-cohesion",
+    name: "Alumni & Cohésion",
+    description: "Anime le réseau, crée du lien, et organise des temps forts pour la communauté.",
+    image: "/poles/alumni_cohesion.jpg",
+    icon: "users",
+  },
+  {
+    id: "table-ronde",
+    name: "Table Ronde",
+    description: "Organise la conférence annuelle : programme, intervenants, logistique et expérience participants.",
+    image: "/poles/table_ronde.jpg",
+    icon: "mic",
+  },
+  {
+    id: "nuit-des-caducees",
+    name: "Nuit des Caducées",
+    description: "Prépare le gala et la remise des prix : production, scénographie, invités et partenaires.",
+    image: "/poles/nuit_des_caducees.jpg",
+    icon: "sparkles",
+  },
+  {
+    id: "sante-publique",
+    name: "Santé Publique",
+    description: "Porte les initiatives de prévention, sensibilisation et actions à impact en santé.",
+    image: "/poles/sante_publique.jpg",
+    icon: "heart-pulse",
   },
 ] as const
 
@@ -189,7 +194,7 @@ export const events: Event[] = [
     location: "Future4Care (Paris)",
     description:
       "Conférence interactive réunissant experts et professionnels pour débattre des enjeux de transformation et de soutenabilité dans le secteur de la santé.",
-    image: "/pharmaceutical-conference-business-professionals.jpg",
+    image: "/demo/pharmaceutical-conference-business-professionals.jpg",
     category: "Table Ronde",
     status: "past",
   },
@@ -200,7 +205,7 @@ export const events: Event[] = [
     location: "ESCP Business School — Campus Montparnasse (Paris)",
     description:
       "Une soirée solidaire organisée pour mobiliser la communauté autour d’une cause, en partenariat avec des acteurs engagés.",
-    image: "/elegant-gala-dinner-pharmaceutical-event.jpg",
+    image: "/demo/elegant-gala-dinner-pharmaceutical-event.jpg",
     category: "Charité",
     status: "past",
   },
@@ -211,7 +216,7 @@ export const events: Event[] = [
     location: "Pavillon d’Armenonville (Paris)",
     description:
       "La cérémonie phare des Caducées, qui met en lumière des projets et initiatives inspirantes au service de l’innovation en santé.",
-    image: "/elegant-gala-dinner-pharmaceutical-event.jpg",
+    image: "/demo/elegant-gala-dinner-pharmaceutical-event.jpg",
     category: "Nuit des Caducées",
     status: "past",
   },
@@ -222,7 +227,7 @@ export const events: Event[] = [
     location: "Pavillon Royal (Paris)",
     description:
       "Une édition placée sous le signe des innovations & technologies en santé, rassemblant étudiants, alumni, startups, agences et experts du secteur.",
-    image: "/pharmaceutical-conference-business-professionals.jpg",
+    image: "/demo/pharmaceutical-conference-business-professionals.jpg",
     category: "Temps fort",
     status: "past",
   },
@@ -238,63 +243,72 @@ export const teamMembers: TeamMember[] = [
     name: "Léna Palazzolo",
     role: "Présidente",
     bio: "Porte la vision de l’association et coordonne l’ensemble des pôles (événements, partenariats, communication).",
-    image: "/professional-woman-portrait-event-planner.jpg",
+    image: "/demo/professional-woman-portrait-event-planner.jpg",
+    linkedin: "https://www.linkedin.com/in/léna-palazzolo/",
   },
   {
     id: "2",
     name: "Mikael Ziade",
     role: "Vice-Président",
     bio: "Accompagne la présidence et contribue au pilotage des projets transverses et des relations externes.",
-    image: "/professional-young-man-portrait-business-suit.jpg",
+    image: "/demo/professional-young-man-portrait-business-suit.jpg",
+    linkedin: "https://www.linkedin.com/in/mikaelziade/",
   },
   {
     id: "3",
     name: "Léa Fritsch",
     role: "Manager",
     bio: "Assure l’exécution opérationnelle, la coordination du planning et le suivi des actions des pôles.",
-    image: "/professional-young-woman-portrait-business.jpg",
+    image: "/demo/professional-young-woman-portrait-business.jpg",
+    linkedin: "https://www.linkedin.com/in/l%C3%A9a-fritsch-7803bb219/",
   },
   {
     id: "4",
     name: "Dorian Blintz",
     role: "Trésorier",
     bio: "Gère le budget, les engagements et le suivi financier des événements et partenariats.",
-    image: "/professional-man-portrait-business-development.jpg",
+    image: "/demo/professional-man-portrait-business-development.jpg",
+    linkedin: "https://www.linkedin.com/in/dorian-blintz-b4844b242/",
   },
   {
     id: "5",
     name: "Lou‑Anne Schwartz",
     role: "Vice‑Trésorière",
     bio: "Soutient la trésorerie et le suivi administratif, en particulier sur la logistique des événements.",
-    image: "/professional-woman-portrait-finance.jpg",
+    image: "/demo/professional-woman-portrait-finance.jpg",
+    linkedin: "https://www.linkedin.com/in/lou-anne-schwartz/",
   },
   {
     id: "6",
     name: "Syrine Lazrak",
     role: "Secrétaire",
     bio: "Assure le suivi administratif et la coordination documentaire (réunions, comptes rendus, formalités).",
-    image: "/creative-young-man-portrait-marketing.jpg",
+    image: "/demo/creative-young-man-portrait-marketing.jpg",
+    linkedin: "https://www.linkedin.com/in/syrine-lazrak-4009b1334/",
   },
   {
     id: "7",
     name: "Prénom Nom",
     role: "Pôle Partenariats",
     bio: "Développe les relations partenaires et coordonne les collaborations qui rendent possibles nos événements.",
-    image: "/placeholder-user.jpg",
+    image: "/placeholders/placeholder-user.jpg",
+    linkedin: "https://www.linkedin.com/in/prenom-nom/",
   },
   {
     id: "8",
     name: "Prénom Nom",
     role: "Pôle Santé Publique",
     bio: "Conçoit et anime des actions de sensibilisation sur le campus et au-delà (prévention, information, engagement).",
-    image: "/placeholder-user.jpg",
+    image: "/placeholders/placeholder-user.jpg",
+    linkedin: "https://www.linkedin.com/in/prenom-nom/",
   },
   {
     id: "9",
     name: "Prénom Nom",
     role: "Pôle Communication",
     bio: "Assure la stratégie de communication et la mise en valeur des projets sur les réseaux et supports éditoriaux.",
-    image: "/placeholder-user.jpg",
+    image: "/placeholders/placeholder-user.jpg",
+    linkedin: "https://www.linkedin.com/in/prenom-nom/",
   },
 ]
 
@@ -303,10 +317,10 @@ export const teamMembers: TeamMember[] = [
 // -----------------------------------------------------------------------------
 
 export const partners: Partner[] = [
-  { name: "ESCP Business School", logo: "/placeholder-logo.svg", href: "https://escp.eu" },
-  { name: "Future4Care", logo: "/healthcare-company-logo-professional.jpg" },
-  { name: "Partenaire — Industrie", logo: "/pharmaceutical-company-logo-modern.jpg" },
-  { name: "Partenaire — Tech santé", logo: "/medical-tech-logo.png" },
-  { name: "Partenaire — Biotech", logo: "/biotech-startup-logo-modern.jpg" },
-  { name: "Partenaire — Laboratoire", logo: "/science-laboratory-logo-modern.jpg" },
+  { name: "ESCP Business School", logo: "/placeholders/placeholder-logo.svg", href: "https://escp.eu" },
+  { name: "Future4Care", logo: "/demo/healthcare-company-logo-professional.jpg" },
+  { name: "Partenaire — Industrie", logo: "/demo/pharmaceutical-company-logo-modern.jpg" },
+  { name: "Partenaire — Tech santé", logo: "/demo/medical-tech-logo.png" },
+  { name: "Partenaire — Biotech", logo: "/demo/biotech-startup-logo-modern.jpg" },
+  { name: "Partenaire — Laboratoire", logo: "/demo/science-laboratory-logo-modern.jpg" },
 ]
