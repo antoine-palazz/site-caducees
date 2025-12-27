@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "events": "Events",
+    "team": "Team",
+    "poles": "Committees",
+    "partners": "Partners",
+    "contact": "Contact",
+    "joinUs": "Join Us",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "navigation": "Navigation"
+  },
+  "languageSwitcher": {
+    "label": "Language selector"
+  },
+  "hero": {
+    "eyebrow": "Healthcare Association • ESCP Business School",
+    "discover": "Discover",
+    "scrollLabel": "Scroll to About section"
+  },
+  "about": {
+    "groupPhotoAlt": "Group photo of Les Caducées association",
+    "devNote": "Dev note: replace the image with the official photo (e.g. /public/group-photo.jpg) and update brandAssets.groupPhoto."
+  },
+  "events": {
+    "eyebrow": "Highlights",
+    "title": "Our events",
+    "description": "Discover the key moments that shape our association and bring our community together.",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "learnMore": "Learn more"
+  },
+  "team": {
+    "eyebrow": "Our team",
+    "title": "The 2025-2026 Board",
+    "description": "A passionate team serving our community."
+  },
+  "poles": {
+    "eyebrow": "Organization",
+    "title": "Our committees",
+    "description": "Discover the different committees that structure our association and drive our projects."
+  },
+  "partners": {
+    "eyebrow": "Ecosystem",
+    "title": "Our partners",
+    "description": "They trust us and support our projects."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "description": "Have a question, a partnership proposal, or want to join the adventure? Write to us!",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "nameRequired": "Name is required",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is not valid",
+      "subject": "Subject",
+      "subjectPlaceholder": "Subject of your message",
+      "subjectRequired": "Subject is required",
+      "message": "Message",
+      "messagePlaceholder": "Your message...",
+      "messageRequired": "Message is required",
+      "submit": "Send",
+      "sending": "Sending...",
+      "success": "Your email client will open with a pre-filled message.",
+      "successTitle": "Almost done",
+      "fallbackMessage": "If nothing happens, email us at",
+      "error": "An error occurred. Please try again."
+    },
+    "or": "or email us directly at"
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "information": "Information",
+    "legalMentions": "Legal mentions",
+    "privacyPolicy": "Privacy policy",
+    "statutes": "Association statutes",
+    "copyright": "All rights reserved.",
+    "followInstagram": "Follow us on Instagram",
+    "followLinkedin": "Follow us on LinkedIn",
+    "followTwitter": "Follow us on Twitter"
+  },
+  "legal": {
+    "backToHome": "Back to home",
+    "downloadPdf": "Download statutes (PDF)"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to home"
+  },
+  "skipToContent": "Skip to main content"
+}

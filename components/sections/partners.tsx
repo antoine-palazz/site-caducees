@@ -5,12 +5,14 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import type { Partner } from "@/lib/content/types"
 import { SectionHeader } from "@/components/ui/section-header"
 import { withBasePath } from "@/lib/base-path"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
 
 export interface PartnersSectionProps {
   partners: Partner[]
+  dictionary: Dictionary
 }
 
-export function PartnersSection({ partners }: PartnersSectionProps) {
+export function PartnersSection({ partners, dictionary }: PartnersSectionProps) {
   const { ref, isInView } = useScrollAnimation()
 
   return (
@@ -19,9 +21,9 @@ export function PartnersSection({ partners }: PartnersSectionProps) {
         <SectionHeader
           ref={ref}
           isInView={isInView}
-          eyebrow="Partenaires"
-          title="Ils nous font confiance"
-          description="Nous collaborons avec les leaders de l’industrie pharmaceutique et de la santé pour offrir les meilleures opportunités à nos membres."
+          eyebrow={dictionary.partners.eyebrow}
+          title={dictionary.partners.title}
+          description={dictionary.partners.description}
         />
 
         {/* Partners Logos */}
@@ -49,7 +51,7 @@ function PartnerLogo({ name, logo, href, index }: PartnerLogoProps) {
     <div className="flex items-center justify-center p-4">
       <Image
         src={withBasePath(logo || "/placeholders/placeholder.svg")}
-        alt={`Logo de ${name}`}
+        alt={name}
         width={160}
         height={80}
         className="w-auto h-auto max-h-12 object-contain"
@@ -68,7 +70,7 @@ function PartnerLogo({ name, logo, href, index }: PartnerLogoProps) {
       style={{ transitionDelay: `${index * 50}ms` }}
     >
       {href ? (
-        <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`Visiter le site de ${name}`}>
+        <a href={href} target="_blank" rel="noopener noreferrer" aria-label={name}>
           {content}
         </a>
       ) : (

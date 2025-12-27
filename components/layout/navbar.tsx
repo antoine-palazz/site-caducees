@@ -8,14 +8,19 @@ import { cn } from "@/lib/utils"
 import { withBasePath } from "@/lib/base-path"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle, SheetHeader } from "@/components/ui/sheet"
+import { LanguageSwitcher } from "@/components/ui/language-switcher"
 import type { NavigationItem } from "@/lib/content/types"
+import type { Locale } from "@/lib/i18n/config"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
 
 export interface NavbarProps {
   logo: string
   navigationItems: NavigationItem[]
+  locale: Locale
+  dictionary: Dictionary
 }
 
-export function Navbar({ logo, navigationItems }: NavbarProps) {
+export function Navbar({ logo, navigationItems, locale, dictionary }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -39,7 +44,7 @@ export function Navbar({ logo, navigationItems }: NavbarProps) {
         isScrolled ? "shadow-md" : "shadow-none",
       )}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navigation principale">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label={dictionary.nav.navigation}>
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="#hero" className="flex items-center gap-2">
@@ -73,24 +78,26 @@ export function Navbar({ logo, navigationItems }: NavbarProps) {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* Language Switcher + CTA Button */}
+          <div className="hidden lg:flex items-center gap-4">
+            <LanguageSwitcher locale={locale} dictionary={dictionary} />
             <Button
               asChild
               variant="outline"
               className="border-gold/70 text-gold bg-transparent hover:bg-gold hover:text-gold-foreground hover:border-gold"
             >
-              <Link href="#contact">Nous Rejoindre</Link>
+              <Link href="#contact">{dictionary.nav.joinUs}</Link>
             </Button>
           </div>
 
           {/* Mobile Menu (Sheet handles focus trap + esc + scroll lock) */}
-          <div className="lg:hidden">
+          <div className="lg:hidden flex items-center gap-3">
+            <LanguageSwitcher locale={locale} dictionary={dictionary} />
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
                   className="p-2 text-primary-foreground"
-                  aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                  aria-label={isMobileMenuOpen ? dictionary.nav.closeMenu : dictionary.nav.openMenu}
                   aria-expanded={isMobileMenuOpen}
                 >
                   {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -98,7 +105,7 @@ export function Navbar({ logo, navigationItems }: NavbarProps) {
               </SheetTrigger>
               <SheetContent side="right" className="p-0 bg-primary text-primary-foreground border-primary/30">
                 <SheetHeader className="border-b border-gold/20">
-                  <SheetTitle className="font-serif text-gold">Navigation</SheetTitle>
+                  <SheetTitle className="font-serif text-gold">{dictionary.nav.navigation}</SheetTitle>
                 </SheetHeader>
                 <div className="px-4 pb-6 space-y-4">
                   {navigationItems.map((item) => (
@@ -118,7 +125,7 @@ export function Navbar({ logo, navigationItems }: NavbarProps) {
                       className="w-full bg-gold text-gold-foreground hover:bg-gold/90 mt-4"
                       onClick={closeMobileMenu}
                     >
-                      <Link href="#contact">Nous rejoindre</Link>
+                      <Link href="#contact">{dictionary.nav.joinUs}</Link>
                     </Button>
                   </SheetClose>
                 </div>

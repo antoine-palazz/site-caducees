@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { withBasePath } from "@/lib/base-path"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import type { Pole } from "@/lib/content/types"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
 
 const iconMap: Record<NonNullable<Pole["icon"]>, React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>> = {
   shield: Shield,
@@ -21,9 +22,10 @@ const iconMap: Record<NonNullable<Pole["icon"]>, React.ComponentType<{ className
 
 export interface PolesSectionProps {
   poles: Pole[]
+  dictionary: Dictionary
 }
 
-export function PolesSection({ poles }: PolesSectionProps) {
+export function PolesSection({ poles, dictionary }: PolesSectionProps) {
   const { ref, isInView } = useScrollAnimation()
 
   return (
@@ -36,12 +38,14 @@ export function PolesSection({ poles }: PolesSectionProps) {
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >
-          <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">Organisation</span>
+          <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">
+            {dictionary.poles.eyebrow}
+          </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6 text-balance caducees-underline">
-            Nos pôles
+            {dictionary.poles.title}
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed text-pretty">
-            Une équipe structurée en pôles pour porter nos événements, partenariats, actions et communication.
+            {dictionary.poles.description}
           </p>
         </div>
 
@@ -79,7 +83,7 @@ function PoleCard({ name, description, image, icon, index }: PoleCardProps) {
       <div className="relative h-44">
         <Image
           src={withBasePath(image)}
-          alt={`Illustration du pôle ${name}`}
+          alt=""
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -95,13 +99,11 @@ function PoleCard({ name, description, image, icon, index }: PoleCardProps) {
             </div>
           ) : null}
           <div>
-        <h3 className="text-xl font-semibold text-foreground mb-2">{name}</h3>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
+            <h3 className="text-xl font-semibold text-foreground mb-2">{name}</h3>
+            <p className="text-muted-foreground leading-relaxed">{description}</p>
           </div>
         </div>
       </div>
     </article>
   )
 }
-
-

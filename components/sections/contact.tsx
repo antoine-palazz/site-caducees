@@ -10,18 +10,17 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
 
 interface FormErrors {
-  firstName?: string
-  lastName?: string
+  name?: string
   email?: string
   subject?: string
   message?: string
 }
 
 interface FormData {
-  firstName: string
-  lastName: string
+  name: string
   email: string
   subject: string
   message: string
@@ -31,45 +30,41 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export interface ContactSectionProps {
   email: string
+  dictionary: Dictionary
 }
 
-export function ContactSection({ email }: ContactSectionProps) {
+export function ContactSection({ email, dictionary }: ContactSectionProps) {
   const { ref, isInView } = useScrollAnimation()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
   const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     subject: "",
     message: "",
   })
 
+  const t = dictionary.contact
+
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "Le prénom est requis"
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Le nom est requis"
+    if (!formData.name.trim()) {
+      newErrors.name = t.form.nameRequired
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "L’email est requis"
+      newErrors.email = t.form.emailRequired
     } else if (!EMAIL_REGEX.test(formData.email)) {
-      newErrors.email = "L’email n’est pas valide"
+      newErrors.email = t.form.emailInvalid
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = "Le sujet est requis"
+      newErrors.subject = t.form.subjectRequired
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "Le message est requis"
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Le message doit contenir au moins 10 caractères"
+      newErrors.message = t.form.messageRequired
     }
 
     setErrors(newErrors)
@@ -94,9 +89,8 @@ export function ContactSection({ email }: ContactSectionProps) {
 
     const subject = `[Les Caducées] ${formData.subject}`.trim()
     const body = [
-      `Prénom: ${formData.firstName}`,
-      `Nom: ${formData.lastName}`,
-      `Email: ${formData.email}`,
+      `${t.form.name}: ${formData.name}`,
+      `${t.form.email}: ${formData.email}`,
       "",
       formData.message,
     ].join("\n")
@@ -117,13 +111,12 @@ export function ContactSection({ email }: ContactSectionProps) {
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >
-          <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">Contact</span>
+          <span className="text-gold text-sm font-medium tracking-widest uppercase mb-4 block">{t.eyebrow}</span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-6 text-balance caducees-underline">
-            Rejoignez-nous
+            {t.title}
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed text-pretty">
-            Intéressé(e) par notre association ? Contactez-nous pour en savoir plus sur nos activités et comment devenir
-            membre.
+            {t.description}
           </p>
         </div>
 
@@ -138,65 +131,43 @@ export function ContactSection({ email }: ContactSectionProps) {
               <div className="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-8 h-8 text-gold" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-semibold text-foreground mb-3">Presque fini</h3>
+              <h3 className="text-2xl font-semibold text-foreground mb-3">{t.form.successTitle}</h3>
               <p className="text-muted-foreground">
-                Votre client email va s’ouvrir avec un message pré-rempli. Si rien ne se passe, écrivez-nous à{" "}
+                {t.form.success} {t.form.fallbackMessage}{" "}
                 <a className="text-gold hover:underline" href={`mailto:${email}`}>
                   {email}
                 </a>
-                .
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">Prénom</Label>
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    placeholder="Votre prénom"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    aria-invalid={!!errors.firstName}
-                    aria-describedby={errors.firstName ? "firstName-error" : undefined}
-                    className={cn("bg-card border-border focus:border-gold", errors.firstName && "border-destructive")}
-                  />
-                  {errors.firstName && (
-                    <p id="firstName-error" className="text-sm text-destructive flex items-center gap-1">
-                      <AlertCircle size={14} aria-hidden="true" />
-                      {errors.firstName}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Nom</Label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Votre nom"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    aria-invalid={!!errors.lastName}
-                    aria-describedby={errors.lastName ? "lastName-error" : undefined}
-                    className={cn("bg-card border-border focus:border-gold", errors.lastName && "border-destructive")}
-                  />
-                  {errors.lastName && (
-                    <p id="lastName-error" className="text-sm text-destructive flex items-center gap-1">
-                      <AlertCircle size={14} aria-hidden="true" />
-                      {errors.lastName}
-                    </p>
-                  )}
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="name">{t.form.name}</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder={t.form.namePlaceholder}
+                  value={formData.name}
+                  onChange={handleChange}
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
+                  className={cn("bg-card border-border focus:border-gold", errors.name && "border-destructive")}
+                />
+                {errors.name && (
+                  <p id="name-error" className="text-sm text-destructive flex items-center gap-1">
+                    <AlertCircle size={14} aria-hidden="true" />
+                    {errors.name}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t.form.email}</Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="votre.email@example.com"
+                  placeholder={t.form.emailPlaceholder}
                   value={formData.email}
                   onChange={handleChange}
                   aria-invalid={!!errors.email}
@@ -212,11 +183,11 @@ export function ContactSection({ email }: ContactSectionProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="subject">Sujet</Label>
+                <Label htmlFor="subject">{t.form.subject}</Label>
                 <Input
                   id="subject"
                   name="subject"
-                  placeholder="Objet de votre message"
+                  placeholder={t.form.subjectPlaceholder}
                   value={formData.subject}
                   onChange={handleChange}
                   aria-invalid={!!errors.subject}
@@ -232,11 +203,11 @@ export function ContactSection({ email }: ContactSectionProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message">{t.form.message}</Label>
                 <Textarea
                   id="message"
                   name="message"
-                  placeholder="Votre message..."
+                  placeholder={t.form.messagePlaceholder}
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
@@ -256,7 +227,7 @@ export function ContactSection({ email }: ContactSectionProps) {
               </div>
 
               <Button type="submit" className="w-full bg-gold text-gold-foreground hover:bg-gold/90">
-                Envoyer par email
+                {t.form.submit}
                 <Send className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </form>

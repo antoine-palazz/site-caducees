@@ -1,7 +1,8 @@
 import "server-only"
 
-import { brandAssets, siteConfig, navigationItems, aboutContent, stats, values, events, teamMembers, poles, partners } from "@/lib/site-data"
+import { getSiteDataForLocale } from "@/lib/site-data"
 import type { AboutContent, Event, NavigationItem, Partner, Pole, SiteConfig, Stat, TeamMember, Value } from "@/lib/content/types"
+import type { Locale } from "@/lib/i18n/config"
 import { strapiFetch } from "@/lib/cms/strapi/client"
 import { mapStrapiMediaUrl } from "@/lib/cms/strapi/mappers"
 import { strapiPagination } from "@/lib/cms/strapi/queries"
@@ -24,18 +25,19 @@ export interface HomePageContent {
   partners: Partner[]
 }
 
-function getStaticHomePageContent(): HomePageContent {
+function getStaticHomePageContent(locale: Locale): HomePageContent {
+  const data = getSiteDataForLocale(locale)
   return {
-    siteConfig,
-    brandAssets,
-    navigationItems,
-    aboutContent,
-    stats,
-    values,
-    events,
-    teamMembers,
-    poles,
-    partners,
+    siteConfig: data.siteConfig,
+    brandAssets: data.brandAssets,
+    navigationItems: data.navigationItems,
+    aboutContent: data.aboutContent,
+    stats: data.stats,
+    values: data.values,
+    events: data.events,
+    teamMembers: data.teamMembers,
+    poles: data.poles,
+    partners: data.partners,
   }
 }
 
@@ -45,9 +47,11 @@ function getStaticHomePageContent(): HomePageContent {
  * This expects Strapi content-types aligned with your existing `lib/site-data.ts` shapes.
  * If Strapi isn't configured yet (or the schema is incomplete), we fall back to static content.
  */
-export async function getHomePageContent(): Promise<HomePageContent> {
+export async function getHomePageContent(locale: Locale = "fr"): Promise<HomePageContent> {
+  const staticData = getStaticHomePageContent(locale)
+
   if (!process.env.STRAPI_URL) {
-    return getStaticHomePageContent()
+    return staticData
   }
 
   try {
@@ -58,13 +62,25 @@ export async function getHomePageContent(): Promise<HomePageContent> {
       return Number.isFinite(n) && n >= 0 ? n : 300
     })()
 
+    // Add locale to all Strapi queries
+    const localeQuery = { locale }
+
     const [site, nav, homepage, ev, team, pl, part] = await Promise.all([
-      strapiFetch<any>("/api/site-config", { tags: ["tag:siteConfig"], revalidate }),
-      strapiFetch<any>("/api/navigation", { tags: ["tag:navigation"], revalidate }),
+      strapiFetch<any>("/api/site-config", { 
+        tags: ["tag:siteConfig"], 
+        revalidate,
+        query: localeQuery,
+      }),
+      strapiFetch<any>("/api/navigation", { 
+        tags: ["tag:navigation"], 
+        revalidate,
+        query: localeQuery,
+      }),
       strapiFetch<any>("/api/homepage", {
         tags: ["tag:home"],
         revalidate,
         query: {
+          ...localeQuery,
           // Ensure media in nested component is populated (Strapi REST).
           "populate[brandAssets][populate][logo]": "*",
           "populate[brandAssets][populate][groupPhoto]": "*",
@@ -74,6 +90,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
         tags: ["tag:events"],
         revalidate,
         query: {
+          ...localeQuery,
           ...strapiPagination(1, 100),
           "populate[image]": "*",
           "sort[0]": "date:desc",
@@ -83,6 +100,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
         tags: ["tag:team"],
         revalidate,
         query: {
+          ...localeQuery,
           ...strapiPagination(1, 100),
           "populate[image]": "*",
           "sort[0]": "order:asc",
@@ -93,6 +111,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
         tags: ["tag:poles"],
         revalidate,
         query: {
+          ...localeQuery,
           ...strapiPagination(1, 100),
           "populate[image]": "*",
           "sort[0]": "order:asc",
@@ -103,6 +122,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
         tags: ["tag:partners"],
         revalidate,
         query: {
+          ...localeQuery,
           ...strapiPagination(1, 100),
           "populate[logo]": "*",
           "sort[0]": "order:asc",
@@ -114,7 +134,7 @@ export async function getHomePageContent(): Promise<HomePageContent> {
     const fallbackToStatic = process.env.CMS_FALLBACK_TO_STATIC === "true" || process.env.NODE_ENV !== "production"
 
     if (!site?.data || !nav?.data || !homepage?.data) {
-      if (fallbackToStatic) return getStaticHomePageContent()
+      if (fallbackToStatic) return staticData
       throw new Error("Strapi returned empty payload for one or more single-types (site-config/navigation/homepage).")
     }
 
@@ -142,8 +162,8 @@ export async function getHomePageContent(): Promise<HomePageContent> {
 
     const mappedBrandAssets: BrandAssets = {
       // Allow Strapi to omit media during initial setup; fall back to static site assets.
-      logo: mapStrapiMediaUrl(hpAttrs.brandAssets?.logo) ?? brandAssets.logo,
-      groupPhoto: mapStrapiMediaUrl(hpAttrs.brandAssets?.groupPhoto) ?? brandAssets.groupPhoto,
+      logo: mapStrapiMediaUrl(hpAttrs.brandAssets?.logo) ?? staticData.brandAssets.logo,
+      groupPhoto: mapStrapiMediaUrl(hpAttrs.brandAssets?.groupPhoto) ?? staticData.brandAssets.groupPhoto,
     }
 
     const mappedSiteConfig: SiteConfig = {
@@ -249,21 +269,19 @@ export async function getHomePageContent(): Promise<HomePageContent> {
     return {
       siteConfig: mappedSiteConfig,
       brandAssets: mappedBrandAssets,
-      navigationItems: mappedNavigation.length ? mappedNavigation : navigationItems,
+      navigationItems: mappedNavigation.length ? mappedNavigation : staticData.navigationItems,
       aboutContent: mappedAbout,
-      stats: mappedStats.length ? mappedStats : stats,
-      values: mappedValues.length ? mappedValues : values,
-      events: mappedEvents.length ? mappedEvents : events,
-      teamMembers: mappedTeam.length ? mappedTeam : teamMembers,
-      poles: mappedPoles.length ? mappedPoles : poles,
-      partners: mappedPartners.length ? mappedPartners : partners,
+      stats: mappedStats.length ? mappedStats : staticData.stats,
+      values: mappedValues.length ? mappedValues : staticData.values,
+      events: mappedEvents.length ? mappedEvents : staticData.events,
+      teamMembers: mappedTeam.length ? mappedTeam : staticData.teamMembers,
+      poles: mappedPoles.length ? mappedPoles : staticData.poles,
+      partners: mappedPartners.length ? mappedPartners : staticData.partners,
     }
   } catch (err) {
     if (process.env.CMS_FALLBACK_TO_STATIC === "true" || process.env.NODE_ENV !== "production") {
-      return getStaticHomePageContent()
+      return staticData
     }
     throw new Error("Failed to fetch/map homepage content from Strapi (and fallback is disabled).", { cause: err })
   }
 }
-
-

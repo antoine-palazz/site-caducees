@@ -9,6 +9,7 @@ import { withBasePath } from "@/lib/base-path"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { AnimatedCounter } from "@/components/ui/animated-counter"
 import type { AboutContent, Stat, Value } from "@/lib/content/types"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
 
 const iconMap = {
   trophy: Trophy,
@@ -22,9 +23,10 @@ export interface AboutSectionProps {
   brandAssets: { logo: string; groupPhoto: string }
   stats: Stat[]
   values: Value[]
+  dictionary: Dictionary
 }
 
-export function AboutSection({ aboutContent, brandAssets, stats, values }: AboutSectionProps) {
+export function AboutSection({ aboutContent, brandAssets, stats, values, dictionary }: AboutSectionProps) {
   const { ref: sectionRef, isInView } = useScrollAnimation()
   const showPlaceholderNote =
     process.env.NODE_ENV !== "production" && brandAssets.groupPhoto === "/placeholders/placeholder.jpg"
@@ -54,7 +56,7 @@ export function AboutSection({ aboutContent, brandAssets, stats, values }: About
           <div className="relative aspect-[16/7] rounded-xl overflow-hidden border border-border shadow-sm">
             <Image
               src={withBasePath(brandAssets.groupPhoto)}
-              alt="Photo de groupe de l’association Les Caducées"
+              alt={dictionary.about.groupPhotoAlt}
               fill
               sizes="(max-width: 1024px) 100vw, 960px"
               className="object-cover"
@@ -64,8 +66,7 @@ export function AboutSection({ aboutContent, brandAssets, stats, values }: About
           </div>
           {showPlaceholderNote ? (
             <figcaption className="mt-3 text-center text-sm text-muted-foreground">
-              Note dev : remplacez l’image par la photo officielle (ex. <span className="font-medium">/public/group-photo.jpg</span>)
-              et mettez à jour <span className="font-medium">brandAssets.groupPhoto</span>.
+              {dictionary.about.devNote}
             </figcaption>
           ) : null}
         </figure>

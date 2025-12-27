@@ -4,12 +4,14 @@ import Link from "next/link"
 import { ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { withBasePath } from "@/lib/base-path"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
 
 export interface HeroSectionProps {
   tagline: string
+  dictionary: Dictionary
 }
 
-export function HeroSection({ tagline }: HeroSectionProps) {
+export function HeroSection({ tagline, dictionary }: HeroSectionProps) {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Brand background + subtle logo watermark (better UX than a heavy photo) */}
@@ -39,7 +41,7 @@ export function HeroSection({ tagline }: HeroSectionProps) {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <div className="animate-fade-in-up">
           <span className="inline-block text-gold text-sm font-medium tracking-widest uppercase mb-6">
-            Association santé • ESCP Business School
+            {dictionary.hero.eyebrow}
           </span>
         </div>
 
@@ -54,7 +56,7 @@ export function HeroSection({ tagline }: HeroSectionProps) {
 
         <div className="animate-fade-in-up stagger-3 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90 min-w-[180px]">
-            <Link href="#contact">Nous Rejoindre</Link>
+            <Link href="#contact">{dictionary.nav.joinUs}</Link>
           </Button>
           <Button
             asChild
@@ -62,7 +64,7 @@ export function HeroSection({ tagline }: HeroSectionProps) {
             size="lg"
             className="border-gold/70 text-gold hover:bg-gold hover:text-gold-foreground min-w-[180px] bg-transparent"
           >
-            <Link href="#about">Découvrir</Link>
+            <Link href="#about">{dictionary.hero.discover}</Link>
           </Button>
         </div>
       </div>
@@ -72,9 +74,9 @@ export function HeroSection({ tagline }: HeroSectionProps) {
         <Link
           href="#about"
           className="flex flex-col items-center gap-2 text-primary-foreground/70 hover:text-gold transition-colors"
-          aria-label="Défiler vers la section À propos"
+          aria-label={dictionary.hero.scrollLabel}
         >
-          <span className="text-xs uppercase tracking-widest">Découvrir</span>
+          <span className="text-xs uppercase tracking-widest">{dictionary.hero.discover}</span>
           <ArrowDown size={20} aria-hidden="true" />
         </Link>
       </div>

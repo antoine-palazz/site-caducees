@@ -3,14 +3,20 @@ import Image from "next/image"
 import { Instagram, Linkedin, Twitter, Mail, MapPin, Phone } from "lucide-react"
 import type { NavigationItem, SiteConfig } from "@/lib/content/types"
 import { withBasePath } from "@/lib/base-path"
+import type { Locale } from "@/lib/i18n/config"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
 
 export interface FooterProps {
   logo: string
   siteConfig: SiteConfig
   navigationItems: NavigationItem[]
+  locale: Locale
+  dictionary: Dictionary
 }
 
-export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
+export function Footer({ logo, siteConfig, navigationItems, locale, dictionary }: FooterProps) {
+  const t = dictionary.footer
+
   return (
     <footer className="bg-primary text-primary-foreground border-t border-gold/20" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -41,7 +47,7 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-foreground/75 hover:text-gold transition-colors"
-                  aria-label="Suivez-nous sur Instagram"
+                  aria-label={t.followInstagram}
                 >
                   <Instagram size={20} aria-hidden="true" />
                 </a>
@@ -52,7 +58,7 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-foreground/75 hover:text-gold transition-colors"
-                  aria-label="Suivez-nous sur LinkedIn"
+                  aria-label={t.followLinkedin}
                 >
                   <Linkedin size={20} aria-hidden="true" />
                 </a>
@@ -63,7 +69,7 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-foreground/75 hover:text-gold transition-colors"
-                  aria-label="Suivez-nous sur Twitter"
+                  aria-label={t.followTwitter}
                 >
                   <Twitter size={20} aria-hidden="true" />
                 </a>
@@ -72,8 +78,8 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
           </div>
 
           {/* Navigation Column */}
-          <nav aria-label="Navigation du pied de page">
-            <h3 className="text-sm font-semibold text-gold uppercase tracking-wider mb-4">Navigation</h3>
+          <nav aria-label={t.navigation}>
+            <h3 className="text-sm font-semibold text-gold uppercase tracking-wider mb-4">{t.navigation}</h3>
             <ul className="space-y-3">
               {navigationItems.map((item) => (
                 <li key={item.href}>
@@ -90,7 +96,7 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
 
           {/* Contact Column */}
           <div>
-            <h3 className="text-sm font-semibold text-gold uppercase tracking-wider mb-4">Contact</h3>
+            <h3 className="text-sm font-semibold text-gold uppercase tracking-wider mb-4">{t.contact}</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <Mail size={16} className="text-gold mt-0.5 flex-shrink-0" aria-hidden="true" />
@@ -123,24 +129,24 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
 
           {/* Legal Column */}
           <div>
-            <h3 className="text-sm font-semibold text-gold uppercase tracking-wider mb-4">Informations</h3>
+            <h3 className="text-sm font-semibold text-gold uppercase tracking-wider mb-4">{t.information}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/mentions-legales" className="text-sm text-primary-foreground/75 hover:text-gold transition-colors">
-                  Mentions légales
+                <Link href={`/${locale}/mentions-legales`} className="text-sm text-primary-foreground/75 hover:text-gold transition-colors">
+                  {t.legalMentions}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/politique-de-confidentialite"
+                  href={`/${locale}/politique-de-confidentialite`}
                   className="text-sm text-primary-foreground/75 hover:text-gold transition-colors"
                 >
-                  Politique de confidentialité
+                  {t.privacyPolicy}
                 </Link>
               </li>
               <li>
-                <Link href="/statuts" className="text-sm text-primary-foreground/75 hover:text-gold transition-colors">
-                  Statuts de l’association
+                <Link href={`/${locale}/statuts`} className="text-sm text-primary-foreground/75 hover:text-gold transition-colors">
+                  {t.statutes}
                 </Link>
               </li>
             </ul>
@@ -150,7 +156,7 @@ export function Footer({ logo, siteConfig, navigationItems }: FooterProps) {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gold/20">
           <p className="text-center text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} Les Caducées. Tous droits réservés.
+            © {new Date().getFullYear()} Les Caducées. {t.copyright}
           </p>
         </div>
       </div>

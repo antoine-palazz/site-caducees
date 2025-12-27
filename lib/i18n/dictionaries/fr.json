@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "events": "Événements",
+    "team": "Équipe",
+    "poles": "Pôles",
+    "partners": "Partenaires",
+    "contact": "Contact",
+    "joinUs": "Nous Rejoindre",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "navigation": "Navigation"
+  },
+  "languageSwitcher": {
+    "label": "Sélecteur de langue"
+  },
+  "hero": {
+    "eyebrow": "Association santé • ESCP Business School",
+    "discover": "Découvrir",
+    "scrollLabel": "Défiler vers la section À propos"
+  },
+  "about": {
+    "groupPhotoAlt": "Photo de groupe de l'association Les Caducées",
+    "devNote": "Note dev : remplacez l'image par la photo officielle (ex. /public/group-photo.jpg) et mettez à jour brandAssets.groupPhoto."
+  },
+  "events": {
+    "eyebrow": "Temps forts",
+    "title": "Nos événements",
+    "description": "Découvrez les moments clés qui rythment la vie de notre association et rassemblent notre communauté.",
+    "upcoming": "À venir",
+    "past": "Passé",
+    "learnMore": "En savoir plus"
+  },
+  "team": {
+    "eyebrow": "Notre équipe",
+    "title": "Le Bureau 2025-2026",
+    "description": "Une équipe passionnée au service de notre communauté."
+  },
+  "poles": {
+    "eyebrow": "Organisation",
+    "title": "Nos pôles",
+    "description": "Découvrez les différents pôles qui structurent notre association et portent nos projets."
+  },
+  "partners": {
+    "eyebrow": "Écosystème",
+    "title": "Nos partenaires",
+    "description": "Ils nous font confiance et nous accompagnent dans nos projets."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Nous contacter",
+    "description": "Une question, une proposition de partenariat ou envie de rejoindre l'aventure ? Écrivez-nous !",
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "nameRequired": "Le nom est requis",
+      "email": "Email",
+      "emailPlaceholder": "votre@email.com",
+      "emailRequired": "L'email est requis",
+      "emailInvalid": "L'email n'est pas valide",
+      "subject": "Sujet",
+      "subjectPlaceholder": "Objet de votre message",
+      "subjectRequired": "Le sujet est requis",
+      "message": "Message",
+      "messagePlaceholder": "Votre message...",
+      "messageRequired": "Le message est requis",
+      "submit": "Envoyer",
+      "sending": "Envoi en cours...",
+      "success": "Votre client email va s'ouvrir avec un message pré-rempli.",
+      "successTitle": "Presque fini",
+      "fallbackMessage": "Si rien ne se passe, écrivez-nous à",
+      "error": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "or": "ou écrivez-nous directement à"
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "information": "Informations",
+    "legalMentions": "Mentions légales",
+    "privacyPolicy": "Politique de confidentialité",
+    "statutes": "Statuts de l'association",
+    "copyright": "Tous droits réservés.",
+    "followInstagram": "Suivez-nous sur Instagram",
+    "followLinkedin": "Suivez-nous sur LinkedIn",
+    "followTwitter": "Suivez-nous sur Twitter"
+  },
+  "legal": {
+    "backToHome": "Retour à l'accueil",
+    "downloadPdf": "Télécharger les statuts (PDF)"
+  },
+  "notFound": {
+    "title": "Page non trouvée",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "backToHome": "Retour à l'accueil"
+  },
+  "skipToContent": "Aller au contenu principal"
+}

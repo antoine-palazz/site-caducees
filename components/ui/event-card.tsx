@@ -3,12 +3,14 @@
 import Image from "next/image"
 import { Calendar, Clock, MapPin } from "lucide-react"
 import { format, parseISO } from "date-fns"
-import { fr } from "date-fns/locale"
+import { fr, enUS } from "date-fns/locale"
 import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { withBasePath } from "@/lib/base-path"
+import type { Dictionary } from "@/lib/i18n/get-dictionary"
+import type { Locale } from "@/lib/i18n/config"
 
 interface EventCardProps {
   title: string
@@ -19,12 +21,15 @@ interface EventCardProps {
   image: string
   category: string
   index: number
+  locale: Locale
+  dictionary: Dictionary
 }
 
-export function EventCard({ title, date, time, location, description, image, category, index }: EventCardProps) {
+export function EventCard({ title, date, time, location, description, image, category, index, locale, dictionary }: EventCardProps) {
   const { ref, isInView } = useScrollAnimation<HTMLButtonElement>()
 
-  const formattedDate = format(parseISO(date), "d MMMM yyyy", { locale: fr })
+  const dateLocale = locale === "fr" ? fr : enUS
+  const formattedDate = format(parseISO(date), "d MMMM yyyy", { locale: dateLocale })
 
   return (
     <Dialog>
@@ -37,7 +42,7 @@ export function EventCard({ title, date, time, location, description, image, cat
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
           style={{ transitionDelay: `${index * 100}ms` }}
-          aria-label={`Voir les détails de l’événement : ${title}`}
+          aria-label={`${dictionary.events.learnMore}: ${title}`}
         >
           {/* Image */}
           <div className="relative h-48 overflow-hidden">

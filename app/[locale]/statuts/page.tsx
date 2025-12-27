@@ -1,23 +1,47 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import { notFound } from "next/navigation"
 import { getLegalStatuts } from "@/lib/content/get-legal"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { isValidLocale, locales } from "@/lib/i18n/config"
 
-export const metadata: Metadata = {
-  title: "Statuts | Les Caducées",
+type Props = {
+  params: Promise<{ locale: string }>
 }
 
-export default async function StatutsPage() {
-  const content = await getLegalStatuts()
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  const isFr = locale === "fr"
+  return {
+    title: isFr ? "Statuts | Les Caducées" : "Statutes | Les Caducées",
+  }
+}
+
+export default async function StatutsPage({ params }: Props) {
+  const { locale } = await params
+
+  if (!isValidLocale(locale)) {
+    notFound()
+  }
+
+  const [content, dictionary] = await Promise.all([
+    getLegalStatuts(locale),
+    getDictionary(locale),
+  ])
 
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <Link
-        href="/"
+        href={`/${locale}`}
         className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition-colors mb-8"
       >
         <ArrowLeft size={16} />
-        Retour à l’accueil
+        {dictionary.legal.backToHome}
       </Link>
       <h1 className="text-3xl font-bold text-foreground mb-6">{content.title}</h1>
       <div className="space-y-4 text-muted-foreground leading-relaxed prose prose-sm max-w-none">
@@ -29,7 +53,7 @@ export default async function StatutsPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Télécharger les statuts (PDF)
+              {dictionary.legal.downloadPdf}
             </a>
           </p>
         ) : null}
